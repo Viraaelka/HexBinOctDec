@@ -9,7 +9,7 @@ public class Calculation {
 
 
     public static void main(String[]args){
-        calcOct("7C", 16);
+        calcOct("7C87", 10);
 
     }
 
