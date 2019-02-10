@@ -25,9 +25,10 @@ public class Convertion {
     }
     public static String convertToBin(String k){
         String rec = "", sum = "";
-     //   int m = k.length()%3;
+        int m = k.length()%3;
+        int h = k.length() - k.length()%3;
         if(k.length()%3 != 0){
-            for(int i = k.length() - k.length()%3; i >= 0; i--){
+            for(int i = (k.length() - (k.length()%3)); i >= 0; i--){
                 k = "0" + k;
             }
         }

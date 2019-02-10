@@ -9,7 +9,7 @@ public class Calculation {
 
 
     public static void main(String[]args){
-        calcOct("7C87", 10);
+        calcOct("785D", 16);
 
     }
 
@@ -91,7 +91,7 @@ public class Calculation {
                           }
                       }
                       else {
-                        for (int i = 0; i < binMassive.length-2; i++) {
+                        for (int i = 0; i < binMassive.length; i++) {
                             if (Character.getNumericValue(ch) == i)
                                 rec += binMassive[i];
                         }
