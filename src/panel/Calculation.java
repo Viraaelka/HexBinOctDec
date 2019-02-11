@@ -9,7 +9,7 @@ public class Calculation {
 
 
     public static void main(String[]args){
-        calcOct("785D", 16);
+        calcOct("110110101", 2);
 
     }
 
@@ -80,7 +80,7 @@ public class Calculation {
             }
         }
         catch(NumberFormatException e) {
-
+            System.out.println("Wrong convertion to octavian");
         }
         if (temp == 16) {
                   for(Character ch : k.toCharArray()) {
