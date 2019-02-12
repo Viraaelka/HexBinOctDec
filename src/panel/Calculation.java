@@ -9,7 +9,7 @@ public class Calculation {
 
 
     public static void main(String[]args){
-        calcOct("110110101", 2);
+        calcHex("5C9", 2);
 
     }
 
@@ -22,6 +22,16 @@ public class Calculation {
         binHex.put("D", "1101");
         binHex.put("E", "1110");
         binHex.put("F", "1111");
+    }
+    public static HashMap<String, String> letterToNumb = new HashMap<>();
+    public static String[] mas = {"A", "B", "C", "D", "E", "F"};
+    static {
+        letterToNumb.put("10", "A");
+        letterToNumb.put("11", "B");
+        letterToNumb.put("12", "C");
+        letterToNumb.put("13", "D");
+        letterToNumb.put("14", "E");
+        letterToNumb.put("15", "F");
     }
 
    // public static String[] numbHex = {"A", "B", "C", "D", "E", "F"};
@@ -104,14 +114,37 @@ public class Calculation {
     public static void calcHex(String k, int temp){
         String rec = "", sum = "";
         int number = 0;
-        try{
-            number = Integer.parseInt(k);
+         if(temp == 2) {
+             try {
+
+             }
+         }
+             while (number > 0) {
+                 if (number % temp >= 10) {
+                /*for(Map.Entry<String, String> pair : letterToNumb.entrySet()){
+                       if(pair.getKey().equals(rec))
+                        sum += pair.getValue() + "";
+                               } */
+                     for (int i = 0; i <= mas.length; i++) {
+                         if (String.valueOf(number).equals("1" + i))
+                             sum += mas[i];
+                     }
+                 } else {
+                     rec += String.valueOf(number % temp) + "";
+                     number = number / temp;
+                     sum += rec + "";
+                     rec = "";
+                 }
+             }
+             System.out.println("sumSUM = " + sum);
+
+
+
             if(temp == 10){}
-            if(temp == 2){}
+
             if(temp == 8){}
-        }catch(NumberFormatException e){
 
         }
     }
 
-}
+
