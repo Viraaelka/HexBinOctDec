@@ -24,7 +24,7 @@ public class Calculation {
         binHex.put("F", "1111");
     }
     public static HashMap<String, String> letterToNumb = new HashMap<>();
-    public static String[] mas = {"A", "B", "C", "D", "E", "F"};
+    public static String[] letterMas = {"A", "B", "C", "D", "E", "F"};
     static {
         letterToNumb.put("10", "A");
         letterToNumb.put("11", "B");
@@ -111,40 +111,50 @@ public class Calculation {
             System.out.println("sumHex = " + sum);
         }
     }
-    public static void calcHex(String k, int temp){
+    public static void calcHex(String k, int temp) {
         String rec = "", sum = "";
-        int number = 0;
-         if(temp == 2) {
-             try {
+        int number = 0, h = 0;
 
-             }
-         }
-             while (number > 0) {
-                 if (number % temp >= 10) {
-                /*for(Map.Entry<String, String> pair : letterToNumb.entrySet()){
-                       if(pair.getKey().equals(rec))
-                        sum += pair.getValue() + "";
-                               } */
-                     for (int i = 0; i <= mas.length; i++) {
-                         if (String.valueOf(number).equals("1" + i))
-                             sum += mas[i];
-                     }
-                 } else {
-                     rec += String.valueOf(number % temp) + "";
-                     number = number / temp;
-                     sum += rec + "";
-                     rec = "";
-                 }
-             }
-             System.out.println("sumSUM = " + sum);
-
-
-
-            if(temp == 10){}
-
-            if(temp == 8){}
-
+        //  number = Integer.parseInt(k);
+        if (temp == 10) {
+            try {
+                //     number = Integer.parseInt(k);
+                while (number > 0) {
+                    h = number % 16;
+                    if (number % 16 >= 10) {
+                        for (int i = 0; i < letterMas.length; i++) {
+                            if (String.valueOf(number % 16).equals("1" + i))
+                                rec += letterMas[i] + "";
+                        }
+                    } else {
+                        rec += String.valueOf(number % 16) + "";
+                    }
+                    number = number / 16;
+                }
+                for (int i = rec.length() - 1; i >= 0; i--) {
+                    sum += rec.charAt(i) + "";
+                }
+                System.out.println("recHex = " + sum);
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong value is detected in calcHex");
+            }
+        }
+        if (temp == 2) {
+            if (k.length() % 4 != 0) {
+                for (int i = k.length() % 4; i >= 0; i--) {
+                    k = "0" + k;
+                }
+            }
+            for (int i = 0; i < k.length(); i += 4) {
+                rec = k.substring(i, i + 4);
+                for (int j = 0; j < binMassive.length; j++) {
+                    if (rec.equals(binMassive[j].substring(0, 4)))
+                        sum += j;
+                }
+            }
         }
     }
+    }
+
 
 
