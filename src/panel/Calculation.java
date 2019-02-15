@@ -26,7 +26,7 @@ public class Calculation {
                 if () calcOct();
                     if () */
     }
-    public static void calcBin(String k, int temp) {
+    public static String calcBin(String k, int temp) {
         String rec = ""; // sum = "";
         int number = 0;
         try {
@@ -52,18 +52,19 @@ public class Calculation {
                     }
                 }
             }
-            System.out.println("rec_Hex " + rec);
+            // System.out.println("rec_Hex " + rec);
         }
+        return rec;
     }
-    public static void calcOct(String k, int temp) {
+    public static String calcOct(String k, int temp) {
         String rec = "", sum = "";
         if (temp == 2) {
-            rec = Convertion.convertToBin(k);
-            System.out.println("recOct = " + rec);
+            sum = Convertion.convertToBin(k);
+           // System.out.println("recOct = " + sum);
         }
         if (temp == 10) {
-            rec = Convertion.multiplyMethod(k, 8);
-            System.out.println("rec: " + rec);
+            sum = Convertion.multiplyMethod(k, 8);
+          //  System.out.println("rec: " + sum);
         }
         if (temp == 16) {
             for (Character ch : k.toCharArray()) {
@@ -82,8 +83,9 @@ public class Calculation {
             sum = Convertion.convertToBin(rec);
             System.out.println("sumHex = " + sum);
         }
+        return sum;
     }
-    public static void calcHex(String k, int temp) {
+    public static String calcHex(String k, int temp) {
         String rec = "", sum = "";
         int number = 0, h = 0;
         if (temp == 10) {
@@ -123,9 +125,10 @@ public class Calculation {
             System.out.println("recHex = " + sum);
         }
         if (temp == 8) {
-            rec = Convertion.multiplyMethod(k, 8);
-            calcHex(rec, 10);
+            sum = Convertion.multiplyMethod(k, 8);
+            calcHex(sum, 10);
         }
+        return sum;
     }
 }
 
