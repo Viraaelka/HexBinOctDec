@@ -7,6 +7,8 @@ import java.awt.event.*;
 
 public class Frame{
     public String linkImage = "C:\\Users\\Elvira\\Desktop\\Stuff\\Java_projects\\Pogoda\\JOptionPane\\src\\57.PNG";
+    String str = "";
+
     JFrame frame;
 
     public Frame(){
@@ -30,7 +32,7 @@ public class Frame{
            @Override
            // стирать все, что внутри, когжа мышью нажал на окно
             public void mousePressed(MouseEvent e) {
-                super.mouseEntered(e);  
+                super.mouseEntered(e);
                   jText.setText("");
                   outText.setText("");
             }
@@ -88,33 +90,29 @@ public class Frame{
         jHex.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (jDec.isValid() && jHex.isSelected()) {
-                    outText.setText("Hey broo");
-                }
-
+                    if(str == "Bin") {
+                        outText.setText(Calculation.calcHex(jText.getText(), 10));
+                    }
+                str = e.getActionCommand();
+            }
+            });
                     // outText.setText(Calculation.calcHex(jText.getText(), 10));
 
-                    if (jDec.isSelected()) outText.setText(Calculation.calcHex(jText.getText(), 10));
+                /*    if (jDec.isSelected()) outText.setText(Calculation.calcHex(jText.getText(), 10));
                     if (jOct.isSelected()) outText.setText(Calculation.calcHex(jText.getText(), 8));
                     if (jBin.isSelected()) outText.setText(Calculation.calcHex(jText.getText(), 2));
 
-             /*   if (jBin.isValid()){
-                    if (jDec.isSelected()) outText.setText(Calculation.calcBin(jText.getText(), 10));
-                    if (jOct.isSelected()) outText.setText(Calculation.calcBin(jText.getText(), 8));
-                    if (jHex.isSelected()) outText.setText(Calculation.calcBin(jText.getText(), 16));
-                } */
-            }
-        });
-       /* jBin.addActionListener(new ActionListener() {
+            } */
+
+        jBin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (jBin.isValid()){
-                    if (jDec.isSelected()){}
-                    if (jOct.isSelected()){}
-                    if (jHex.isSelected()){}
+                if(str == "Hex"){
+                    outText.setText(Calculation.calcBin(jText.getText(), 16));
                 }
+                str = e.getActionCommand();
             }
-        }); */
+        });
     /*    jDec.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
