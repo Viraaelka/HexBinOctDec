@@ -52,7 +52,7 @@ public class Calculation {
                     }
                 }
             }
-            // System.out.println("rec_Hex " + rec);
+             System.out.println("rec_Hex " + rec);
         }
         return rec;
     }
