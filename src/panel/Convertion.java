@@ -1,5 +1,8 @@
 package panel;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Convertion {
     public static String divisionToNumb(int number, int temp){
         String rec = "", sum = "";
@@ -10,6 +13,7 @@ public class Convertion {
         sum = returnOperation(rec);
         return sum;
     }
+
     public static String convertationNumbToBin(int number){
         String rec = "";
         for (Character charac : String.valueOf(number).toCharArray()) {
@@ -20,23 +24,28 @@ public class Convertion {
         }
         return rec;
     }
-    public static String convertToBin(String k){
+    public static String convertToBin(String k, int temp){
         String rec = "", sum = "";
+        if (temp == 8) temp = 2;
+        else temp = 0;
         k = zeroAddition(k, 3);
 
-        for(int i = 0; i < k.length(); i+=3){
-            rec = k.substring(i, i+3);
-            for (int j = 0; j < Calculation.binMassive.length; j++){
+        //for(int i = 0; i < k.length(); i+=3){
+        for(int i = k.length(); i > 0; i-=3) {
+            rec = k.substring(i-3, i);
+            for (int j = 0; j < Calculation.binMassive.length - temp; j++){
                 if (rec.equals(Calculation.binMassive[j].substring(1, 4)))
                     sum += j;
             }
         }
+        sum = returnOperation(sum);
+        //  sum = regexZero(sum);
         return sum;
     }
 
     public static String zeroAddition(String kup, int t){
         if(kup.length()%t != 0){
-            for(int i = t - kup.length()%t; i >= 0; i--){
+            for(int i = t - kup.length()%t; i > 0; i--){
                 kup = "0" + kup;
             }
         }
@@ -49,11 +58,16 @@ public class Convertion {
         }
         return sum;
     }
+
+
+
+
     public static String multiplyMethod(String str, int temp){
         int number = 0, d = 0, p = 0, m = 0, result = 0;
         String sum = "", res = "";
         int index = 0;
         for(int i = 0; i < str.length(); i++) {
+
             if (!Character.isDigit(str.charAt(i))) {
                 for (int j = 0; j < Calculation.letterMas.length; j++) {
                     if (String.valueOf(str.charAt(i)).equals(Calculation.letterMas[j]))
@@ -67,5 +81,10 @@ public class Convertion {
         }
         return String.valueOf(result);
     }
+    public static String regexZero(String rec){
+        Pattern pattern = Pattern.compile("^\\d(0)*");
+        Matcher matcher = pattern.matcher(rec);
+        String kup = matcher.replaceAll("");
+        return kup;
+    }
 }
-

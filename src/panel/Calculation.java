@@ -6,7 +6,8 @@ import java.util.Map;
 
 public class Calculation {
     public static void main(String[] args) {
-        calcOct("526", 10);
+        System.out.println(calcHex("16", 8));
+        //  System.out.println(Convertion.multiplyMethod("16", 8));
     }
     public static String[] binMassive = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001"};
     public static HashMap<String, String> binHex = new HashMap<>();
@@ -36,7 +37,7 @@ public class Calculation {
                 System.out.println("rec: " + rec);
             }
             if (temp == 8) {
-                rec = Convertion.convertationNumbToBin(number);
+                rec = Convertion.convertToBin(k, 8);
                 System.out.println("rec " + rec);
             }
         } catch (NumberFormatException e) {
@@ -52,19 +53,23 @@ public class Calculation {
                     }
                 }
             }
-             System.out.println("rec_Hex " + rec);
+            System.out.println("rec_Hex " + rec);
         }
         return rec;
     }
     public static String calcOct(String k, int temp) {
         String rec = "", sum = "";
         if (temp == 2) {
-            sum = Convertion.convertToBin(k);
-           // System.out.println("recOct = " + sum);
+            for (Character charac : String.valueOf(k).toCharArray()) {
+                for (int i = 0; i < binMassive.length - 2; i++) {
+                    if (i == Character.getNumericValue(charac))
+                        sum +=  binMassive[i].substring(1, 4) + "";
+                }
+            }
         }
         if (temp == 10) {
             sum = Convertion.multiplyMethod(k, 8);
-          //  System.out.println("rec: " + sum);
+            //  System.out.println("rec: " + sum);
         }
         if (temp == 16) {
             for (Character ch : k.toCharArray()) {
@@ -74,13 +79,13 @@ public class Calculation {
                             rec = rec + pair.getValue();
                     }
                 } else {
-                    for (int i = 0; i < binMassive.length - 2; i++) {
+                    for (int i = 0; i < binMassive.length; i++) {
                         if (Character.getNumericValue(ch) == i)
                             rec += binMassive[i];
                     }
                 }
             }
-            sum = Convertion.convertToBin(rec);
+            sum = Convertion.convertToBin(rec, 8);
             System.out.println("sumHex = " + sum);
         }
         return sum;
@@ -126,9 +131,9 @@ public class Calculation {
         }
         if (temp == 8) {
             sum = Convertion.multiplyMethod(k, 8);
-            calcHex(sum, 10);
+
+            // sum = Convertion.divisionToNumb(Integer.parseInt(sum), 16);
         }
         return sum;
     }
 }
-

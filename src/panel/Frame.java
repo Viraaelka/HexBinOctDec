@@ -35,17 +35,17 @@ public class Frame{
         jOct.setActionCommand("Oct");
         jDec.setSelected(true);
         str = butGr.getSelection().getActionCommand();
-      //  System.out.println(butGr.getSelection().getActionCommand());
+        //  System.out.println(butGr.getSelection().getActionCommand());
 
         jText.setBounds(50, 100, 180, 30);
         jText.setEditable(true);
         jText.addMouseListener(new MouseAdapter() {
-           @Override
-           // стирать все, что внутри, когжа мышью нажал на окно
+            @Override
+            // стирать все, что внутри, когжа мышью нажал на окно
             public void mousePressed(MouseEvent e) {
                 super.mouseEntered(e);
-                  jText.setText("");
-                  outText.setText("");
+                jText.setText("");
+                outText.setText("");
             }
         });
 
@@ -56,9 +56,7 @@ public class Frame{
 
       /*  That's a removal of any entered text! Should be used when you need to
       removed text enery time the mouse is going through the panel
-
       outText.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
@@ -102,53 +100,51 @@ public class Frame{
             public void actionPerformed(ActionEvent e) {
                 if (str =="Bin" && jHex.isSelected())
                 {
-                    outText.setText(Calculation.calcBin(jText.getText(), 16));
-                   // System.out.println(str);
-                  //  outText.setText(butGr.getSelection().getActionCommand());
+                    outText.setText(Calculation.calcHex(jText.getText(), 2));
+                    System.out.println(str);
                 }
                 if(str == "Dec" && jHex.isSelected()) {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
+                    outText.setText(Convertion.divisionToNumb(Integer.parseInt(jText.getText()), 16));
                     System.out.println(str);
                 }
 
                 if(str == "Oct" && jHex.isSelected()) {
-                   // outText.setText(Calculation.calcHex(jText.getText(), 8));
+                    outText.setText(Calculation.calcHex(jText.getText(), 8));
                 }
-
-                str = e.getActionCommand();
-            }
-            });
-
-        jBin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-             /*   if(str == "Hex") {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
-                }
-                if(str == "Dec") {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
-                }
-
-                if(str == "Oct") {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
-                } */
 
                 str = e.getActionCommand();
             }
         });
-       jDec.addActionListener(new ActionListener() {
+
+        jBin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(str == "Hex") {
+                    outText.setText(Calculation.calcBin(jText.getText(), 16));
+                }
+                if(str == "Dec") {
+                    outText.setText(Calculation.calcBin(jText.getText(), 10));
+                }
+                if(str == "Oct") {
+                    outText.setText(Calculation.calcOct(jText.getText(), 2));
+                }
+
+                str = e.getActionCommand();
+            }
+        });
+        jDec.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(str == "Bin" && jDec.isSelected()) {
-                   // outText.setText(Calculation.calcHex(jText.getText(), 10));
+                    outText.setText(Convertion.multiplyMethod(jText.getText(), 2));
                 }
                 if(str == "Hex" && jDec.isSelected()) {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
+                    outText.setText(Convertion.multiplyMethod(jText.getText(), 16));
                     System.out.println(str);
                 }
 
                 if(str == "Oct" && jDec.isSelected()) {
-                  //  outText.setText(Calculation.calcHex(jText.getText(), 10));
+                    outText.setText(Convertion.multiplyMethod(jText.getText(), 8));
                 }
 
                 str = e.getActionCommand();
@@ -157,16 +153,16 @@ public class Frame{
         jOct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              /*  if(str == "Bin") {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
+                if(str == "Bin") {
+                    outText.setText(Calculation.calcBin(jText.getText(), 8));
+                    // outText.setText(Calculation.calcOct(jText.getText(), 2));
                 }
                 if(str == "Dec") {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
+                    outText.setText(Convertion.divisionToNumb(Integer.parseInt(jText.getText()), 8));
                 }
-
                 if(str == "Hex") {
-                    outText.setText(Calculation.calcHex(jText.getText(), 10));
-                } */
+                    outText.setText(Calculation.calcOct(jText.getText(), 16));
+                }
 
                 str = e.getActionCommand();
             }
