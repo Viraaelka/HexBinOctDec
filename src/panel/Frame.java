@@ -1,9 +1,12 @@
 package panel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Panel;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.EventListener;
 
 import javax.swing.*;
@@ -58,6 +61,7 @@ public class Frame{
         jText.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+
                 char c = e.getKeyChar();
                 if(jHex.isSelected()) {
                     if(!(Character.isDigit(c) || (c >= 'A' && c <= 'F') ||
@@ -94,8 +98,6 @@ public class Frame{
             }
         });
 
-        frame.add(jText);
-
         outText.setBounds(50, 150, 180, 30);
         outText.setEditable(false);
 
@@ -110,16 +112,24 @@ public class Frame{
         });
         */
 
-        frame.add(outText);
+
+        try {
+            frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("C:\\Users\\Elvira\\Desktop\\Свадебные фото\\13.PNG")))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+      //  frame.pack();
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(jHex);
         frame.add(jDec);
         frame.add(jOct);
         frame.add(jBin);
-
-        frame.setLayout(null);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(outText);
+        frame.add(jText);
 
         jHex.addActionListener(new ActionListener() {
             @Override
@@ -198,7 +208,6 @@ public class Frame{
                 str = e.getActionCommand();
             }
         });
-
     }
     JRadioButton jHex = new JRadioButton("Hex");
     JRadioButton jDec = new JRadioButton("Dec");

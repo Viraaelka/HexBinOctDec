@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Calculation {
     public static void main(String[] args) {
-        System.out.println(calcBin("2A5C", 16));
+        new Frame();
     }
     public static String[] binMassive = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001"};
     public static HashMap<String, String> binHex = new HashMap<>();
@@ -23,12 +23,9 @@ public class Calculation {
         binHex.put("E", "1110");
         binHex.put("F", "1111");
     }
-    // public static String[] numbHex = {"A", "B", "C", "D", "E", "F"};
+
     public static void calculation(String k, int temp) {
-      /*  if () calcDec();
-            if () calcHex();
-                if () calcOct();
-                    if () */
+
     }
     public static String calcBin(String k, int temp) {
         String rec = ""; // sum = "";
@@ -94,7 +91,6 @@ public class Calculation {
                 }
             }
             sum = Convertion.convertToBin(rec, 8);
-            System.out.println("sumHex = " + sum);
         }
         return sum;
     }
@@ -126,8 +122,8 @@ public class Calculation {
             k = Convertion.zeroAddition(k, 4);
             for (int i = 0; i < k.length(); i += 4) {
                 rec = k.substring(i, i + 4);
-                for (int j = 0; j < Calculation.binMassive.length; j++) {
-                    if (rec.equals(Calculation.binMassive[j].substring(0, 4)))
+                for (int j = 0; j < binMassive.length; j++) {
+                    if (rec.equals(binMassive[j].substring(0, 4)))
                         sum += j;
                 }
                 for (Map.Entry<String, String> pair : binHex.entrySet()) {
