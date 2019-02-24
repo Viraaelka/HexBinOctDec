@@ -4,10 +4,13 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Calculation {
     public static void main(String[] args) {
-        System.out.println(calcHex("16", 8));
-        //  System.out.println(Convertion.multiplyMethod("16", 8));
+        System.out.println(calcBin("2A5C", 16));
     }
     public static String[] binMassive = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001"};
     public static HashMap<String, String> binHex = new HashMap<>();
@@ -30,6 +33,18 @@ public class Calculation {
     public static String calcBin(String k, int temp) {
         String rec = ""; // sum = "";
         int number = 0;
+        if (temp == 16) {
+            for (Character c : k.toCharArray()) {
+                if (Character.isDigit(c)) {
+                    rec += Convertion.convertationNumbToBin(Character.getNumericValue(c)) + "";
+                } else {
+                    for (Map.Entry<String, String> pair : binHex.entrySet()) {
+                        if (String.valueOf(c).equals(pair.getKey()))
+                            rec += pair.getValue() + "";
+                    }
+                }
+            }
+        }
         try {
             number = Integer.parseInt(k);
             if (temp == 10) {
@@ -40,21 +55,14 @@ public class Calculation {
                 rec = Convertion.convertToBin(k, 8);
                 System.out.println("rec " + rec);
             }
+
         } catch (NumberFormatException e) {
-            if (temp == 16) {
-                for (Character c : k.toCharArray()) {
-                    if (Character.isDigit(c)) {
-                        rec += Convertion.convertationNumbToBin(Character.getNumericValue(c)) + "";
-                    } else {
-                        for (Map.Entry<String, String> pair : binHex.entrySet()) {
-                            if (String.valueOf(c).equals(pair.getKey()))
-                                rec += pair.getValue() + "";
-                        }
-                    }
-                }
-            }
-            System.out.println("rec_Hex " + rec);
+            // temp = 16;
+            //  calcBin(k, temp);
         }
+
+        System.out.println("rec_Hex " + rec);
+
         return rec;
     }
     public static String calcOct(String k, int temp) {
@@ -133,6 +141,8 @@ public class Calculation {
             sum = Convertion.multiplyMethod(k, 8);
 
             // sum = Convertion.divisionToNumb(Integer.parseInt(sum), 16);
+            sum = calcBin(sum, 10);
+            sum = calcHex(sum, 2);
         }
         return sum;
     }

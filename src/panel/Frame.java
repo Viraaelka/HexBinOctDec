@@ -6,9 +6,16 @@ import java.awt.Panel;
 import java.awt.event.*;
 import java.util.EventListener;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.Panel;
+import java.awt.event.*;
+import java.util.EventListener;
+
 public class Frame{
     public String linkImage = "C:\\Users\\Elvira\\Desktop\\Stuff\\Java_projects\\Pogoda\\JOptionPane\\src\\57.PNG";
     String str = "";
+    String tempStr = "", temp1 = "";
 
     JFrame frame;
 
@@ -41,11 +48,49 @@ public class Frame{
         jText.setEditable(true);
         jText.addMouseListener(new MouseAdapter() {
             @Override
-            // стирать все, что внутри, когжа мышью нажал на окно
+// стирать все, что внутри, когжа мышью нажал на окно
             public void mousePressed(MouseEvent e) {
                 super.mouseEntered(e);
                 jText.setText("");
                 outText.setText("");
+            }
+        });
+        jText.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(jHex.isSelected()) {
+                    if(!(Character.isDigit(c) || (c >= 'A' && c <= 'F') ||
+                            (c >= 'a' && c <= 'f')))
+                        e.consume();
+                }
+                if(jOct.isSelected()) {
+                    if(!(c >= '0' && c <= '7'))
+                        e.consume();
+                }
+                if(jBin.isSelected()) {
+                    if(!(c == '0' || c == '1'))
+                        e.consume();
+                }
+                if(jDec.isSelected()) {
+                    if(!(c >= '0' && c <= '9'))
+                        e.consume();
+                }
+                outText.setText(outText.getText() + String.valueOf(c).toUpperCase());
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                jText = (JTextField) e.getSource();
+                // here should be: String text = jText.getText() and put this text to jText   jText.setText(text);
+                // make it faster:
+                jText.setText(jText.getText().toUpperCase());
+                outText.setText(jText.getText().toUpperCase());
             }
         });
 
@@ -65,25 +110,6 @@ public class Frame{
         });
         */
 
-        jText.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                super.keyTyped(e);
-                char ch = e.getKeyChar();
-                outText.setText(outText.getText() + String.valueOf(ch));
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                super.keyReleased(e);
-            }
-        });
         frame.add(outText);
 
         frame.add(jHex);
@@ -98,14 +124,12 @@ public class Frame{
         jHex.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (str =="Bin" && jHex.isSelected())
-                {
+                if (str =="Bin" && jHex.isSelected()) {
                     outText.setText(Calculation.calcHex(jText.getText(), 2));
-                    System.out.println(str);
+
                 }
                 if(str == "Dec" && jHex.isSelected()) {
-                    outText.setText(Convertion.divisionToNumb(Integer.parseInt(jText.getText()), 16));
-                    System.out.println(str);
+                    outText.setText(Calculation.calcHex(Calculation.calcBin(jText.getText(), 10), 2));
                 }
 
                 if(str == "Oct" && jHex.isSelected()) {
@@ -128,8 +152,15 @@ public class Frame{
                 if(str == "Oct") {
                     outText.setText(Calculation.calcOct(jText.getText(), 2));
                 }
+                tempStr = Convertion.zeroAddition(outText.getText(), 4);
+                System.out.println(tempStr);
+                for(int i = 0; i < outText.getText().length(); i += 4){
+                    temp1 += tempStr.substring(i, i+4) + " ";
+                }
+                outText.setText(temp1);
 
                 str = e.getActionCommand();
+                temp1 = ""; tempStr = "";
             }
         });
         jDec.addActionListener(new ActionListener() {
@@ -167,6 +198,7 @@ public class Frame{
                 str = e.getActionCommand();
             }
         });
+
     }
     JRadioButton jHex = new JRadioButton("Hex");
     JRadioButton jDec = new JRadioButton("Dec");

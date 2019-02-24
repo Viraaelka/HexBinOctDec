@@ -3,6 +3,9 @@ package panel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Convertion {
     public static String divisionToNumb(int number, int temp){
         String rec = "", sum = "";
