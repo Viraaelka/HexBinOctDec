@@ -8,10 +8,10 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/*-----------------------------------Class to make convertation-------------------------------------------*/
+
 public class Calculation {
-    public static void main(String[] args) {
-        new Frame();
-    }
+
     public static String[] binMassive = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001"};
     public static HashMap<String, String> binHex = new HashMap<>();
     public static String[] letterMas = {"A", "B", "C", "D", "E", "F"};
@@ -24,12 +24,11 @@ public class Calculation {
         binHex.put("F", "1111");
     }
 
-    public static void calculation(String k, int temp) {
-
-    }
     public static String calcBin(String k, int temp) {
-        String rec = ""; // sum = "";
+        String rec = "";
         int number = 0;
+
+        // From BIN to HEX
         if (temp == 16) {
             for (Character c : k.toCharArray()) {
                 if (Character.isDigit(c)) {
@@ -44,19 +43,18 @@ public class Calculation {
         }
         try {
             number = Integer.parseInt(k);
+            // From BIN to DEC
             if (temp == 10) {
                 rec = Convertion.divisionToNumb(number, 2);
                 System.out.println("rec: " + rec);
             }
+            // From BIN to OCT
             if (temp == 8) {
                 rec = Convertion.convertToBin(k, 8);
                 System.out.println("rec " + rec);
             }
 
-        } catch (NumberFormatException e) {
-            // temp = 16;
-            //  calcBin(k, temp);
-        }
+        } catch (NumberFormatException e) {}
 
         System.out.println("rec_Hex " + rec);
 
@@ -64,6 +62,8 @@ public class Calculation {
     }
     public static String calcOct(String k, int temp) {
         String rec = "", sum = "";
+
+        // From OCT to BIN
         if (temp == 2) {
             for (Character charac : String.valueOf(k).toCharArray()) {
                 for (int i = 0; i < binMassive.length - 2; i++) {
@@ -72,10 +72,11 @@ public class Calculation {
                 }
             }
         }
+        // From OCT to DEC
         if (temp == 10) {
             sum = Convertion.multiplyMethod(k, 8);
-            //  System.out.println("rec: " + sum);
         }
+        // From OCT to HEX
         if (temp == 16) {
             for (Character ch : k.toCharArray()) {
                 if (!Character.isDigit(ch)) {
@@ -97,6 +98,8 @@ public class Calculation {
     public static String calcHex(String k, int temp) {
         String rec = "", sum = "";
         int number = 0, h = 0;
+
+        // From HEX to DEC
         if (temp == 10) {
             try {
                 number = Integer.parseInt(k);
@@ -118,6 +121,7 @@ public class Calculation {
                 System.out.println("Wrong value is detected in calcHex");
             }
         }
+        // From HEX to BIN
         if (temp == 2) {
             k = Convertion.zeroAddition(k, 4);
             for (int i = 0; i < k.length(); i += 4) {
@@ -133,10 +137,9 @@ public class Calculation {
             }
             System.out.println("recHex = " + sum);
         }
+        // From HEX to OCT
         if (temp == 8) {
             sum = Convertion.multiplyMethod(k, 8);
-
-            // sum = Convertion.divisionToNumb(Integer.parseInt(sum), 16);
             sum = calcBin(sum, 10);
             sum = calcHex(sum, 2);
         }

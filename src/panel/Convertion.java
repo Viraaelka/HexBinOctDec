@@ -3,9 +3,7 @@ package panel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/*------------------------Additional class to simplify calculations in the Calculation class ------------------------*/
 public class Convertion {
     public static String divisionToNumb(int number, int temp){
         String rec = "", sum = "";
@@ -33,7 +31,6 @@ public class Convertion {
         else temp = 0;
         k = zeroAddition(k, 3);
 
-        //for(int i = 0; i < k.length(); i+=3){
         for(int i = k.length(); i > 0; i-=3) {
             rec = k.substring(i-3, i);
             for (int j = 0; j < Calculation.binMassive.length - temp; j++){
@@ -42,7 +39,6 @@ public class Convertion {
             }
         }
         sum = returnOperation(sum);
-        //  sum = regexZero(sum);
         return sum;
     }
 

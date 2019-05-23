@@ -2,18 +2,11 @@ package panel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.Panel;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.EventListener;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.Panel;
-import java.awt.event.*;
-import java.util.EventListener;
+/*---------------------------------GUI class to envelop the convertor-------------------------------------------------*/
 
 public class Frame{
     public String linkImage = "C:\\Users\\Elvira\\Desktop\\Stuff\\Java_projects\\Pogoda\\JOptionPane\\src\\57.PNG";
@@ -22,10 +15,18 @@ public class Frame{
 
     JFrame frame;
 
+    JRadioButton jHex = new JRadioButton("Hex");
+    JRadioButton jDec = new JRadioButton("Dec");
+    JRadioButton jOct = new JRadioButton("Oct");
+    JRadioButton jBin = new JRadioButton("Bin");
+    ButtonGroup butGr = new ButtonGroup();
+    JTextField jText = new JTextField();
+    JTextField outText = new JTextField();
+
     public Frame(){
 
         frame = new JFrame();
-        frame.setTitle("CONVERTOR");
+        frame.setTitle("Convertor");
         frame.setIconImage(new ImageIcon(linkImage).getImage());
         frame.setSize(300, 300);
 
@@ -45,23 +46,22 @@ public class Frame{
         jOct.setActionCommand("Oct");
         jDec.setSelected(true);
         str = butGr.getSelection().getActionCommand();
-        //  System.out.println(butGr.getSelection().getActionCommand());
 
         jText.setBounds(50, 100, 180, 30);
         jText.setEditable(true);
         jText.addMouseListener(new MouseAdapter() {
             @Override
-// стирать все, что внутри, когжа мышью нажал на окно
             public void mousePressed(MouseEvent e) {
                 super.mouseEntered(e);
                 jText.setText("");
                 outText.setText("");
             }
         });
+
+        // limit entering digits (if Dec:0-9; Oct:0-7; Bin:0-1; Hex:0-F)
         jText.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
                 char c = e.getKeyChar();
                 if(jHex.isSelected()) {
                     if(!(Character.isDigit(c) || (c >= 'A' && c <= 'F') ||
@@ -91,8 +91,6 @@ public class Frame{
             @Override
             public void keyReleased(KeyEvent e) {
                 jText = (JTextField) e.getSource();
-                // here should be: String text = jText.getText() and put this text to jText   jText.setText(text);
-                // make it faster:
                 jText.setText(jText.getText().toUpperCase());
                 outText.setText(jText.getText().toUpperCase());
             }
@@ -101,25 +99,12 @@ public class Frame{
         outText.setBounds(50, 150, 180, 30);
         outText.setEditable(false);
 
-      /*  That's a removal of any entered text! Should be used when you need to
-      removed text enery time the mouse is going through the panel
-      outText.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                outText.setText("");
-            }
-        });
-        */
-
-
         try {
             frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("C:\\Users\\Elvira\\Desktop\\Свадебные фото\\13.PNG")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-      //  frame.pack();
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,6 +115,8 @@ public class Frame{
         frame.add(jBin);
         frame.add(outText);
         frame.add(jText);
+
+        /*--------------------------------LISTENERS for jHex, jDec, jOct and jBin -------------------------------*/
 
         jHex.addActionListener(new ActionListener() {
             @Override
@@ -196,7 +183,6 @@ public class Frame{
             public void actionPerformed(ActionEvent e) {
                 if(str == "Bin") {
                     outText.setText(Calculation.calcBin(jText.getText(), 8));
-                    // outText.setText(Calculation.calcOct(jText.getText(), 2));
                 }
                 if(str == "Dec") {
                     outText.setText(Convertion.divisionToNumb(Integer.parseInt(jText.getText()), 8));
@@ -209,21 +195,8 @@ public class Frame{
             }
         });
     }
-    JRadioButton jHex = new JRadioButton("Hex");
-    JRadioButton jDec = new JRadioButton("Dec");
-    JRadioButton jOct = new JRadioButton("Oct");
-    JRadioButton jBin = new JRadioButton("Bin");
-    ButtonGroup butGr = new ButtonGroup();
-    JTextField jText = new JTextField();
-    JTextField outText = new JTextField();
 
     public static void main(String[] args){
         new Frame();
-    }
-    public class Field implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
     }
 }
